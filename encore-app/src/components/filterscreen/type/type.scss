@@ -1,0 +1,12 @@
+.typeWrapper {
+  display: flex;
+}
+.typeWrapper .All,
+.typeWrapper .commonStock,
+.typeWrapper .prefferedStock,
+.typeWrapper .index,
+.typeWrapper .corporateDebt,
+.typeWrapper .fms {
+  padding-right: 23px;
+  min-width: 0;
+}

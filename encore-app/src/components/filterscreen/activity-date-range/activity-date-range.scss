@@ -1,0 +1,31 @@
+.activitydateRangeWrapper {
+  margin: 0;
+  text-align: center;
+  display: block;
+}
+.labelAndHistCurrWrapper {
+  width: 70%;
+  display: inline-block;
+}
+.labelAndHistCurrWrapper .wrapper {
+  display: flex;
+}
+.dateRangeWrapper {
+  display: inline-block;
+}
+
+.fromDateLabelAndPickerWrapper,
+.toDateLabelAndPickerWrapper {
+  display: flex;
+}
+
+.label {
+  width: 37.4%;
+}
+.datePickerWrapper,
+.dropdownWrapper {
+  width: 70%;
+  flex: 0;
+  justify-content: flex-end;
+  display: inline-block;
+}

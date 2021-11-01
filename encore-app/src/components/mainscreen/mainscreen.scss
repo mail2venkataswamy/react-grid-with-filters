@@ -1,0 +1,16 @@
+.maintenance {
+  border: solid 0.1px grey;
+}
+
+.mainscreenTitleAndToggle {
+  display: flex;
+  background-color: #094d91;
+}
+.mainscreenTitleAndToggle .mainscreenHeaderTitle {
+  height: 15px;
+  border: solid 0.1px grey;
+  font-size: 10px;
+  color: white;
+
+  font-weight: 500;
+}
