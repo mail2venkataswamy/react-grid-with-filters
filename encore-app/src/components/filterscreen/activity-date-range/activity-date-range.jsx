@@ -6,7 +6,7 @@ import Datepicker from "../../common/datepicker/datepicker.jsx";
 import ReactDatePicker from "react-datepicker";
 import Daterangepicker from "../../common/date-range-picker/date-range-picker.jsx";
 
-const ActivityDateRange = () => {
+const ActivityDateRange = (props) => {
   let selectOptions = [
     { label: "CURRENT", value: "Current" },
     { label: "HISTORICAL", value: "Historical" },
@@ -19,7 +19,7 @@ const ActivityDateRange = () => {
           <div className="wrapper">
             <div className="label">CURR/HIST</div>
             <div className="dropdownWrapper">
-              <Dropdown></Dropdown>
+              <Dropdown options={selectOptions}></Dropdown>
             </div>
           </div>
           {/*</div>*/}

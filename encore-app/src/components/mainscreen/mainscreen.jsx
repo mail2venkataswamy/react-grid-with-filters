@@ -12,6 +12,8 @@ const mainScreen = (props) => {
         data={props.data}
         onClickPriceRollOverrideButton={props.onClickPriceRollOverrideButton}
         closePriceRollOverrideModal={props.closePriceRollOverrideModal}
+        onSelectReview={props.onSelectReview}
+        closeGridMustSelectedModal={props.closeGridMustSelectedModal}
       ></MaintenanceHeaders>
       <Mainscreengrid />
     </div>

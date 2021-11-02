@@ -4,14 +4,18 @@ const Suggestions = (props) => {
   const options =
     props.results &&
     props.results.map((suggestion, index) => {
-      return <li key={index}>{suggestion.value}</li>;
+      return (
+        <li title={suggestion.value} key={index}>
+          {suggestion.value}
+        </li>
+      );
     });
-  return (
-    options && (
-      <div className="suggestionsWrapper">
-        <ul>{options}</ul>
-      </div>
-    )
+  return options.length > 0 ? (
+    <div className="suggestionsWrapper">
+      <ul>{options}</ul>
+    </div>
+  ) : (
+    <></>
   );
 };
 

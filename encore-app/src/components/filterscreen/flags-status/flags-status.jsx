@@ -40,10 +40,7 @@ const Flagsstatus = () => {
         <div className="labelAndFlaggedWrapper">
           <div className="flaggedEditwrapper">
             <div className="flaggedEditlabel">Flagged Edits:</div>
-            <SelectBox
-              type="single"
-              selectOptions={selectClearedOptions}
-            ></SelectBox>
+            <SelectBox type="single" options={selectClearedOptions}></SelectBox>
           </div>
         </div>
         <div className="labelAndReviewNeededWrapper">
@@ -51,7 +48,7 @@ const Flagsstatus = () => {
             <div className="label">Review Needed:</div>
             <SelectBox
               type="single"
-              selectOptions={selectCrossMarginOptions}
+              options={selectCrossMarginOptions}
             ></SelectBox>
           </div>
           <div className="editedRecordsWrapper">

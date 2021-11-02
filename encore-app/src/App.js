@@ -16,6 +16,10 @@ class App extends Component {
         isPriceRollOverrideModalOpen: false,
         PriceRollOverrideMModalWarningMessage:
           "A record must be selected to perform this action",
+        selectedReviewValue: "",
+        maintenanceGridData: [],
+        openGridMustSelectedModal: false,
+        gridMustBePopulateModalWarningMessage: "Grid must be selected",
       },
       editDashboardData: {},
       filterPanelData: {
@@ -51,6 +55,7 @@ class App extends Component {
       maintenanceScreenData,
     });
   };
+
   onChangeCuspinValue(e) {
     let data = this.state.filterPanelData.cuspinData;
     let filterPanelData = this.state.filterPanelData;
@@ -69,6 +74,26 @@ class App extends Component {
       filterPanelData,
     });
   }
+  onSelectReview = (e) => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.selectedReviewValue = e.target.value;
+    this.setState({
+      maintenanceScreenData,
+    });
+    if (maintenanceScreenData.maintenanceGridData) {
+      maintenanceScreenData.openGridMustSelectedModal = true;
+      this.setState({
+        maintenanceScreenData,
+      });
+    }
+  };
+  closeGridMustSelectedModal = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.openGridMustSelectedModal = false;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
   render() {
     let data = this.state;
     return (
@@ -82,6 +107,8 @@ class App extends Component {
             data={data}
             onClickPriceRollOverrideButton={this.onClickPriceRollOverrideButton}
             closePriceRollOverrideModal={this.closePriceRollOverrideModal}
+            onSelectReview={(e) => this.onSelectReview(e)}
+            closeGridMustSelectedModal={this.closeGridMustSelectedModal}
           ></Mainscreen>
           <Editscreen />
         </div>

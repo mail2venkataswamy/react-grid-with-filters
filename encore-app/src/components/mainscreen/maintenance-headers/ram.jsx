@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
-import ButtonWrapper from "../../common/button/button.jsx";
-import WarningModal from "../../common/modal/warning/warning-modal.jsx";
-import { Menu, Dropdown, Button, message, Space, Tooltip } from "antd";
-import Select from "../../common/select/select.jsx";
+import React from "react";
 import "./maintenance-headers.scss";
-
+import ButtonWrapper from "../../../../../Compositions/GlobalConfigurations/Commons/Button/ButtonWrapper.jsx";
+import { WarningModal } from "../../../../../Compositions/GlobalConfigurations/Commons/modal/warning-modal.jsx";
+import Select from "../../../../../Compositions/GlobalConfigurations/Commons/select/select.jsx";
 const Maintenanceheaders = (props) => {
   return (
     <div className="maintenanceHeaders">
@@ -21,33 +19,16 @@ const Maintenanceheaders = (props) => {
             label={"Price Roll Override"}
             onClick={props.onClickPriceRollOverrideButton}
           ></ButtonWrapper>
-          <Select
-            id="review"
-            data={props.data.maintenanceScreenData}
-            onChange={props.onSelectReview}
-          ></Select>
+          <Select id="review"></Select>
         </div>
         <div className="showColumnsPrintRefreshExportWrapper">
           <ButtonWrapper
             id="showAllColumns"
             label={"Show All Columns"}
-            onClick={props.onSelectReview}
           ></ButtonWrapper>
-          <ButtonWrapper
-            id="refresh"
-            label={"Refresh"}
-            onClick={props.onSelectReview}
-          ></ButtonWrapper>
-          <ButtonWrapper
-            id="print"
-            label={"Print"}
-            onClick={props.onSelectReview}
-          ></ButtonWrapper>
-          <ButtonWrapper
-            id="export"
-            label={"Export"}
-            onClick={props.onSelectReview}
-          ></ButtonWrapper>
+          <ButtonWrapper id="refresh" label={"Refresh"}></ButtonWrapper>
+          <ButtonWrapper id="print" label={"Print"}></ButtonWrapper>
+          <ButtonWrapper id="export" label={"Export"}></ButtonWrapper>
         </div>
       </div>
 
@@ -58,13 +39,6 @@ const Maintenanceheaders = (props) => {
         closeModal={props.closePriceRollOverrideModal}
         warningMessage={
           props.data.maintenanceScreenData.PriceRollOverrideMModalWarningMessage
-        }
-      ></WarningModal>
-      <WarningModal
-        isModalOpen={props.data.maintenanceScreenData.openGridMustSelectedModal}
-        closeModal={props.closeGridMustSelectedModal}
-        warningMessage={
-          props.data.maintenanceScreenData.gridMustBePopulateModalWarningMessage
         }
       ></WarningModal>
     </div>
