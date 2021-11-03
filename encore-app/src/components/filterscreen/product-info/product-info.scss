@@ -6,6 +6,7 @@
 }
 .cuspinLabel {
   display: inline-block;
+  width: 30%;
 }
 .cuspinInputWrapper {
   display: inline-block;
@@ -15,6 +16,7 @@
 }
 .isinLabel {
   display: inline-block;
+  width: 30%;
 }
 .isinInputWrapper {
   display: inline-block;
@@ -24,7 +26,17 @@
 }
 .occSymbolLabel {
   display: inline-block;
+  width: 30%;
 }
 .occSymbolInputWrapper {
   display: inline-block;
+}
+.typeLabelAndValue {
+  display: flex;
+}
+.tierLabelAndValue {
+  display: flex;
+}
+.tierLabelAndValue .label {
+  width: 27%;
 }

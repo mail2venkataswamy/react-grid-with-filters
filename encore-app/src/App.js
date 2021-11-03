@@ -20,6 +20,9 @@ class App extends Component {
         maintenanceGridData: [],
         openGridMustSelectedModal: false,
         gridMustBePopulateModalWarningMessage: "Grid must be selected",
+        isThresholdModalOpen: false,
+        isSuspendRestartRepoModalOpen: false,
+        isPublishValuedSecuritiesModalOpen: false,
       },
       editDashboardData: {},
       filterPanelData: {
@@ -37,6 +40,7 @@ class App extends Component {
           { id: 10, value: "CA001209" },
         ],
         cuspinSuggestionResult: [],
+        cuspinValue: "",
       },
     };
     this.onChangeCuspinValue = this.onChangeCuspinValue.bind(this);
@@ -94,6 +98,57 @@ class App extends Component {
       maintenanceScreenData,
     });
   };
+  closeThresholdModal = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isThresholdModalOpen = false;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
+  onClickThresholdButton = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isThresholdModalOpen = true;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
+  onClickSuggestionItem = (selectedValue) => {
+    alert(selectedValue);
+    let filterPanelData = this.state.filterPanelData;
+    filterPanelData.cuspinValue = selectedValue;
+    this.setState({
+      filterPanelData,
+    });
+  };
+  closeSuspendRestartRepoModal = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isSuspendRestartRepoModalOpen = false;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
+  onClickSuspendRestartRepoButton = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isSuspendRestartRepoModalOpen = true;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
+
+  closePublishValuedSecuritiesModal = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isPublishValuedSecuritiesModalOpen = false;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
+  onClickPublishValuedSecuritiesButton = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.isPublishValuedSecuritiesModalOpen = true;
+    this.setState({
+      maintenanceScreenData,
+    });
+  };
   render() {
     let data = this.state;
     return (
@@ -101,6 +156,7 @@ class App extends Component {
         <Filterscreen
           onChangeCuspinValue={(e) => this.onChangeCuspinValue(e)}
           data={this.state}
+          onClickSuggestionItem={this.onClickSuggestionItem}
         />
         <div className="mainEdit">
           <Mainscreen
@@ -109,6 +165,18 @@ class App extends Component {
             closePriceRollOverrideModal={this.closePriceRollOverrideModal}
             onSelectReview={(e) => this.onSelectReview(e)}
             closeGridMustSelectedModal={this.closeGridMustSelectedModal}
+            closeThresholdModal={this.closeThresholdModal}
+            onClickThresholdButton={this.onClickThresholdButton}
+            onClickSuspendRestartRepoButton={
+              this.onClickSuspendRestartRepoButton
+            }
+            closeSuspendRestartRepoModal={this.closeSuspendRestartRepoModal}
+            closePublishValuedSecuritiesModal={
+              this.closePublishValuedSecuritiesModal
+            }
+            onClickPublishValuedSecuritiesButton={
+              this.onClickPublishValuedSecuritiesButton
+            }
           ></Mainscreen>
           <Editscreen />
         </div>

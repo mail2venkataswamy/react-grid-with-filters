@@ -5,7 +5,11 @@ const Suggestions = (props) => {
     props.results &&
     props.results.map((suggestion, index) => {
       return (
-        <li title={suggestion.value} key={index}>
+        <li
+          onClick={() => props.onClick(suggestion.value)}
+          title={suggestion.value}
+          key={index}
+        >
           {suggestion.value}
         </li>
       );

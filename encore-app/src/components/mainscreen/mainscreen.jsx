@@ -14,6 +14,17 @@ const mainScreen = (props) => {
         closePriceRollOverrideModal={props.closePriceRollOverrideModal}
         onSelectReview={props.onSelectReview}
         closeGridMustSelectedModal={props.closeGridMustSelectedModal}
+        closeThresholdModal={props.closeThresholdModal}
+        onClickThresholdButton={props.onClickThresholdButton}
+        onClickThresholdButton={props.onClickThresholdButton}
+        onClickSuspendRestartRepoButton={props.onClickSuspendRestartRepoButton}
+        closeSuspendRestartRepoModal={props.closeSuspendRestartRepoModal}
+        closePublishValuedSecuritiesModal={
+          props.closePublishValuedSecuritiesModal
+        }
+        onClickPublishValuedSecuritiesButton={
+          props.onClickPublishValuedSecuritiesButton
+        }
       ></MaintenanceHeaders>
       <Mainscreengrid />
     </div>

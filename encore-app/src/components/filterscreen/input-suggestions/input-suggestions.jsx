@@ -4,8 +4,12 @@ import "./input-suggestions.scss";
 const InputSuggestion = (props) => {
   return (
     <div className="inputSuggestionWrapper">
-      <input onChange={props.onChange}></input>
-      <Suggestions results={props.results}></Suggestions>
+      <input onChange={props.onChange} value={props.value}></input>
+      <Suggestions
+        results={props.results}
+        onClick={props.onClick}
+        value={props.value}
+      ></Suggestions>
     </div>
   );
 };

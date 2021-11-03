@@ -16,6 +16,7 @@ const filterscreen = (props) => {
       <Productinfo
         onChangeCuspinValue={props.onChangeCuspinValue}
         data={props.data}
+        onClickSuggestionItem={props.onClickSuggestionItem}
       ></Productinfo>
       <Flagsstatus></Flagsstatus>
       <ResetAndButton></ResetAndButton>

@@ -49,6 +49,8 @@ const Productinfo = (props) => {
             <InputSuggestions
               onChange={props.onChangeCuspinValue}
               results={props.data.filterPanelData.cuspinSuggestionResult}
+              onClick={props.onClickSuggestionItem}
+              value={props.data.filterPanelData.cuspinValue}
             ></InputSuggestions>
           </div>
           <div className="isinLabelAndInputWrapper">
