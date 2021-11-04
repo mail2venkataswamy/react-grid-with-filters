@@ -8,8 +8,19 @@ const Editscreen = (props) => {
     <div className="editDashboard">
       <div className="mainscreenTitleAndToggle">
         <div className="mainscreenHeaderTitle">Edit Category Dashboard</div>
+        <div
+          id="toggle"
+          className="toggle"
+          onClick={props.toggleEditDashboardGrid}
+        >
+          ^
+        </div>
       </div>
-      <Editdashboardgrid />
+      {props.data.editDashboardData.showEditDashboardGrid ? (
+        <Editdashboardgrid />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

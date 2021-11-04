@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./type.scss";
 
 const Typefilter = (props) => {
+  const [allTypes, setAllTypes] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const [commonStock, setCommonStock] = useState(false);
+  const [preferredStock, setPreferredStock] = useState(false);
+  const [index, setIndex] = useState(false);
+  const [corporateDebt, setCorporateDebt] = useState(false);
+  const [fms, setFms] = useState(false);
+  const [types, setTypes] = useState(["All", "Index"]);
+
   let typeData = [
     { label: "All", value: "All" },
     { label: "Common Stock", value: "commonStock" },
@@ -16,8 +25,16 @@ const Typefilter = (props) => {
       <div className="rTableRow">
         <div className="rTableCell">
           <label>
-            {" "}
-            <input className="checkbox" type="checkbox"></input>
+            <input
+              className="checkbox"
+              type="checkbox"
+              checked={
+                allChecked ||
+                allTypes ||
+                (commonStock && preferredStock && index && corporateDebt && fms)
+              }
+              onChange={() => setAllTypes(!allTypes)}
+            ></input>
             All
           </label>
         </div>
@@ -29,6 +46,8 @@ const Typefilter = (props) => {
               className="checkbox"
               type="checkbox"
               value="Commonstock"
+              checked={allTypes || commonStock}
+              onChange={(e) => setCommonStock(!commonStock)}
             ></input>
             Common Stock
           </label>
@@ -39,6 +58,8 @@ const Typefilter = (props) => {
               className="checkbox"
               type="checkbox"
               value="preferredStock"
+              checked={allTypes || preferredStock}
+              onChange={() => setPreferredStock(!preferredStock)}
             ></input>
             Preffered Stock
           </label>
@@ -47,7 +68,13 @@ const Typefilter = (props) => {
       <div className="rTableRow">
         <div className="rTableCell">
           <label>
-            <input className="checkbox" type="checkbox" value="index"></input>
+            <input
+              className="checkbox"
+              type="checkbox"
+              value="index"
+              checked={allTypes || index}
+              onChange={() => setIndex(!index)}
+            ></input>
             Index
           </label>
         </div>
@@ -57,6 +84,8 @@ const Typefilter = (props) => {
               className="checkbox"
               type="checkbox"
               value="Corporatedebt"
+              checked={allTypes || corporateDebt}
+              onChange={() => setCorporateDebt(!corporateDebt)}
             ></input>
             Corporate Debt
           </label>
@@ -65,7 +94,13 @@ const Typefilter = (props) => {
       <div className="rTableRow">
         <div className="rTableCell">
           <label>
-            <input className="checkbox" type="checkbox" value="fms"></input>
+            <input
+              className="checkbox"
+              type="checkbox"
+              value="fms"
+              checked={allTypes || fms}
+              onChange={() => setFms(!fms)}
+            ></input>
             FMS
           </label>
         </div>

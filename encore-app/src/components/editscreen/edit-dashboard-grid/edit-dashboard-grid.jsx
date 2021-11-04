@@ -2,55 +2,52 @@ import React from "react";
 import Aggrid from "../../ag-grid/ag-grid.jsx";
 const rowData = [
   {
-    "#": "",
-    cuspin: "test",
-    tier: "test",
-    type: 1,
-    currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    ValuedSecurityEdits: "test",
+    Intraday_Flagged_Records: 0,
+    Intraday_Review_Needed: 1,
+    Stock_Loan_Flagged_Records: 0,
+    Stock_Loan_Review_Needed: 0,
+    Final_Flagged_Records: 0,
+    Final_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Stock_Loan_Primary_Review_Needed: 0,
+    Stock_Loan_Secondary_Review_Needed: 0,
   },
   {
-    "#": "",
-    cuspin: "test",
-    tier: "test",
-    type: 1,
-    currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    ValuedSecurityEdits: "test1",
+    Intraday_Flagged_Records: 0,
+    Intraday_Review_Needed: 1,
+    Stock_Loan_Flagged_Records: 0,
+    Stock_Loan_Review_Needed: 0,
+    Final_Flagged_Records: 0,
+    Final_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Stock_Loan_Primary_Review_Needed: 0,
+    Stock_Loan_Secondary_Review_Needed: 0,
   },
   {
-    "#": "",
-    cuspin: "test",
-    tier: "test",
-    type: 35000,
-    currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    ValuedSecurityEdits: "test2",
+    Intraday_Flagged_Records: 0,
+    Intraday_Review_Needed: 1,
+    Stock_Loan_Flagged_Records: 0,
+    Stock_Loan_Review_Needed: 0,
+    Final_Flagged_Records: 0,
+    Final_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Final_Secondary_Review_Needed: 0,
+    Stock_Loan_Primary_Review_Needed: 0,
+    Stock_Loan_Secondary_Review_Needed: 0,
   },
 ];
 const colDefsMedalsIncluded = [
-  {
+  /*   {
     width: 60,
     headerCheckboxSelection: true,
     headerCheckboxSelectionFilteredOnly: true,
     checkboxSelection: true,
-  },
+  }, */
   { field: "ValuedSecurityEdits", width: "auto" },
   { field: "Intraday_Flagged_Records", width: "auto" },
   { field: "Intraday_Review_Needed", width: "auto" },
@@ -77,7 +74,7 @@ const Maintenancegrid = () => {
       rowData={rowData}
       colDefsMedalsIncluded={colDefsMedalsIncluded}
       defaultColDef={defaultColDef}
-      gridHeight={200}
+      gridHeight={240}
       gridWidth="auto"
       rowSelection="multiple"
     />

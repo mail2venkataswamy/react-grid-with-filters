@@ -1,9 +1,6 @@
 .prodcutInfoWrapper fieldset {
   min-width: 0;
 }
-.cuspinLabelAndInputWrapper {
-  text-align: center;
-}
 .cuspinLabel {
   display: inline-block;
   width: 30%;
@@ -11,8 +8,10 @@
 .cuspinInputWrapper {
   display: inline-block;
 }
-.isinLabelAndInputWrapper {
-  text-align: center;
+.isinLabelAndInputWrapper,
+.occSymbolLabelAndInputWrapper,
+.cuspinLabelAndInputWrapper {
+  /*   text-align: center; */
 }
 .isinLabel {
   display: inline-block;
@@ -21,9 +20,7 @@
 .isinInputWrapper {
   display: inline-block;
 }
-.occSymbolLabelAndInputWrapper {
-  text-align: center;
-}
+
 .occSymbolLabel {
   display: inline-block;
   width: 30%;
@@ -31,12 +28,23 @@
 .occSymbolInputWrapper {
   display: inline-block;
 }
-.typeLabelAndValue {
+.typeLabelAndValue,
+.tierLabelAndValue,
+.labelAndClearedWrapper,
+.labelAndCrossMarginWrapper,
+.labelAndCurrencyWrapper {
   display: flex;
 }
-.tierLabelAndValue {
-  display: flex;
+
+.tierLabelAndValue .label,
+.typeLabelAndValue .label,
+.currencyLabel,
+.crossMarginLabel,
+.Clearedlabel {
+  width: 30%;
 }
-.tierLabelAndValue .label {
-  width: 27%;
+.currencyWrapper,
+.clearedwrapper,
+.crossMarginWrapper {
+  width: 70%;
 }

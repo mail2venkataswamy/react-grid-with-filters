@@ -53,6 +53,7 @@ const Productinfo = (props) => {
               value={props.data.filterPanelData.cuspinValue}
             ></InputSuggestions>
           </div>
+          <p></p>
           <div className="isinLabelAndInputWrapper">
             <div className="isinLabel">ISIN:</div>
             <div className="isinInputWrapper">
@@ -62,6 +63,7 @@ const Productinfo = (props) => {
               ></InputSuggestions>
             </div>
           </div>
+          <p></p>
           <div className="occSymbolLabelAndInputWrapper">
             <div className="occSymbolLabel">OCC Symbol:</div>
             <div className="occSymbolInputWrapper">
@@ -71,33 +73,38 @@ const Productinfo = (props) => {
               ></InputSuggestions>
             </div>
           </div>
+          <p></p>
         </div>
         <div className="tierLabelAndValue">
           <div className="label">Tier:</div>
           <Tierlevel tierLevelData={tierLevelData}></Tierlevel>
         </div>
+        <p></p>
         <div className="typeLabelAndValue">
           <div className="label">Type:</div>
           <Typefilter typeData={typeData}></Typefilter>
         </div>
+        <p></p>
         <div className="labelAndClearedWrapper">
-          <div className="Clearedwrapper">
-            <div className="Clearedlabel">Cleared:</div>
+          <div className="Clearedlabel">Cleared:</div>
+          <div className="clearedwrapper">
             <SelectBox type="single" options={selectClearedOptions}></SelectBox>
           </div>
         </div>
+        <p></p>
         <div className="labelAndCrossMarginWrapper">
-          <div className="wrapper">
-            <div className="label">Cross Margin Eligible:</div>
+          <div className="crossMarginLabel">Cross Margin Eligible:</div>
+          <div className="crossMarginWrapper">
             <SelectBox
               type="single"
               options={selectCrossMarginOptions}
             ></SelectBox>
           </div>
         </div>
+        <p></p>
         <div className="labelAndCurrencyWrapper">
-          <div className="wrapper">
-            <div className="label">Currency:</div>
+          <div className="currencyLabel">Currency:</div>
+          <div className="currencyWrapper">
             <SelectBox
               type="single"
               options={selectCurrencyOptions}

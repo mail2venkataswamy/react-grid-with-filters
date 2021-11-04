@@ -1,20 +1,15 @@
-.labelAndFlaggedWrapper {
-  text-align: center;
-}
-.labelAndFlaggedWrapper .flaggedEditwrapper {
+.labelAndFlaggedWrapper,
+.labelAndReviewNeededWrapper,
+.editedRecordsWrapper {
   display: flex;
 }
-.labelAndFlaggedWrapper {
+.flaggedEditLabel,
+.reviewNeededLabel,
+.editedRecordsWrapper label {
+  width: 30%;
+}
+
+.flaggedEditwrapper,
+.reviewNeededWrapper {
   width: 70%;
-  display: center;
-}
-.labelAndReviewNeededWrapper {
-  display: center;
-}
-.labelAndReviewNeededWrapper .wrapper {
-  display: flex;
-}
-.labelAndReviewNeededWrapper {
-  width: 70%;
-  display: center;
 }

@@ -17,7 +17,7 @@ const ActivityDateRange = (props) => {
       <div className="activitydateRangeWrapper">
         <div className="labelAndHistCurrWrapper">
           <div className="wrapper">
-            <div className="label">CURR/HIST</div>
+            <div className="currHistLabel">CURR/HIST</div>
             <div className="dropdownWrapper">
               <Dropdown options={selectOptions}></Dropdown>
             </div>

@@ -24,7 +24,7 @@ class App extends Component {
         isSuspendRestartRepoModalOpen: false,
         isPublishValuedSecuritiesModalOpen: false,
       },
-      editDashboardData: {},
+      editDashboardData: { showEditDashboardGrid: true },
       filterPanelData: {
         cuspinSearchValue: "",
         cuspinData: [
@@ -149,6 +149,23 @@ class App extends Component {
       maintenanceScreenData,
     });
   };
+  toggleEditDashboardGrid = () => {
+    let editDashboardData = this.state.editDashboardData;
+    editDashboardData.showEditDashboardGrid = !this.state.editDashboardData
+      .showEditDashboardGrid;
+    this.setState({
+      editDashboardData,
+    });
+    if (editDashboardData.showEditDashboardGrid) {
+      document
+        .getElementById("toggle")
+        .setAttribute("style", "transform:rotate(180deg);left:4px;top:-3px");
+    } else {
+      document
+        .getElementById("toggle")
+        .setAttribute("style", "transform:rotate(360deg)");
+    }
+  };
   render() {
     let data = this.state;
     return (
@@ -178,7 +195,10 @@ class App extends Component {
               this.onClickPublishValuedSecuritiesButton
             }
           ></Mainscreen>
-          <Editscreen />
+          <Editscreen
+            toggleEditDashboardGrid={this.toggleEditDashboardGrid}
+            data={data}
+          />
         </div>
       </div>
     );

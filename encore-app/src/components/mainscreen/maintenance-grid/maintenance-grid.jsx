@@ -5,44 +5,44 @@ const rowData = [
   {
     "#": "",
     cuspin: "test",
-    tier: "test",
+    tier: 1,
     type: 1,
     currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    thomson_price: 11,
+    bloomberg_price: 1234,
+    ice_price: 123,
+    exchange_price: 23,
+    previous_price: 33,
+    final_price: 55,
+    final_price_end_date: new Date(),
   },
   {
     "#": "",
-    cuspin: "test",
-    tier: "test",
+    cuspin: "test1",
+    tier: 1,
     type: 1,
     currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    thomson_price: 11,
+    bloomberg_price: 11,
+    ice_price: 898,
+    exchange_price: 446,
+    previous_price: 676,
+    final_price: 55,
+    final_price_end_date: new Date(),
   },
   {
     "#": "",
-    cuspin: "test",
-    tier: "test",
-    type: 35000,
+    cuspin: "test2",
+    tier: 1,
+    type: 1,
     currency: "USA",
-    thomson_price: "",
-    bloomberg_price: "",
-    ice_price: "",
-    exchange_price: "",
-    previous_price: "",
-    final_price: "",
-    final_price_end_date: "",
+    thomson_price: 99,
+    bloomberg_price: 1111,
+    ice_price: 445,
+    exchange_price: 2653,
+    previous_price: 3365,
+    final_price: 56565,
+    final_price_end_date: new Date(),
   },
 ];
 const colDefsMedalsIncluded = [
@@ -73,6 +73,7 @@ const defaultColDef = {
   //headerCheckboxSelection: isFirstColumn,
   // checkboxSelection: isFirstColumn,
   rowSelection: "multiple",
+  editable: true,
 };
 
 const Maintenancegrid = () => {
@@ -81,7 +82,7 @@ const Maintenancegrid = () => {
       rowData={rowData}
       colDefsMedalsIncluded={colDefsMedalsIncluded}
       defaultColDef={defaultColDef}
-      gridHeight={350}
+      gridHeight={500}
       gridWidth="auto"
       suppressRowClickSelection={true}
       rowSelection="multiple"

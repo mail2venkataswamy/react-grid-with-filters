@@ -1,31 +1,35 @@
 .activitydateRangeWrapper {
   margin: 0;
-  text-align: center;
+  /*   text-align: center; */
   display: block;
 }
 .labelAndHistCurrWrapper {
-  width: 70%;
-  display: inline-block;
+  /*   width: 70%;
+  display: inline-block; */
 }
 .labelAndHistCurrWrapper .wrapper {
   display: flex;
 }
 .dateRangeWrapper {
-  display: inline-block;
+  /*  display: inline-block; */
 }
 
 .fromDateLabelAndPickerWrapper,
 .toDateLabelAndPickerWrapper {
   display: flex;
 }
+.fromDateLabelAndPickerWrapper .label,
+.toDateLabelAndPickerWrapper .label {
+  width: 30%;
+}
 
-.label {
-  width: 37.4%;
+.currHistLabel {
+  width: 30%;
 }
 .datePickerWrapper,
 .dropdownWrapper {
-  width: 70%;
+  /*   width: 70%;
   flex: 0;
   justify-content: flex-end;
-  display: inline-block;
+  display: inline-block; */
 }
