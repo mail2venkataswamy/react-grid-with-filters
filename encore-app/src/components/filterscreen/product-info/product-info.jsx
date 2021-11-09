@@ -1,43 +1,24 @@
 import React from "react";
-import Tierlevel from "../tier-level/tier-level.jsx";
+import Tierlevel from "../../common/tier-level/tier-level.jsx";
 import "./product-info.scss";
-import Typefilter from "../type/type.jsx";
+import Typefilter from "../../common/type/type.jsx";
 import InputSuggestions from "../input-suggestions/input-suggestions.jsx";
 import SelectBox from "../../common/simple-dropdown/dropdown.jsx";
+import Checkbox from "../../common/check-box/check-box.jsx";
 
 const Productinfo = (props) => {
-  let selectClearedOptions = [
-    { label: "BOTH", value: "ClearedAndNonCleared" },
-    { label: "Cleared", value: "Cleared" },
-    { label: "Non Cleared", value: "Non Cleared" },
-  ];
-  let selectCrossMarginOptions = [
-    { label: "BOTH", value: "CrossMarginAndNonCrossMragin" },
-    { label: "Cross Margin Eligible", value: "CrossMargin" },
-    { label: "Non Cross Margin Eligible", value: "NonCrossMargin" },
-  ];
-  let selectCurrencyOptions = [
-    { label: "ALL", value: "All" },
-    { label: "USD", value: "USD" },
-    { label: "AUD", value: "Aud" },
-    { label: "CAD", value: "Cad" },
-  ];
-  let tierLevelData = [
-    { label: "All", value: "All" },
-    { label: "1", value: "one" },
-    { label: "2", value: "two" },
-    { label: "3", value: "three" },
-    { label: "4", value: "four" },
-  ];
-  let typeData = [
-    { label: "All", value: "All" },
-    { label: "Common Stock", value: "commonStock" },
-    { label: "Preffered Stock", value: "prefferedStock" },
-    { label: "Index", value: "index" },
-    { label: "Corporate Debt", value: "corporateDebt" },
-    { label: "FMS", value: "fms" },
-  ];
-
+  const {
+    selectClearedOptions,
+    selectCrossMarginOptions,
+    selectCurrencyOptions,
+    tierLevelData,
+    typeData,
+    isAllTypeChecked,
+    isAllTireChecked,
+    selectedCurrencyValue,
+    selectedCrossMarginValue,
+    selectedClearedValue,
+  } = props.data.filterPanelData;
   return (
     <div className="prodcutInfoWrapper">
       <fieldset>
@@ -58,8 +39,10 @@ const Productinfo = (props) => {
             <div className="isinLabel">ISIN:</div>
             <div className="isinInputWrapper">
               <InputSuggestions
-                onChange={() => {}}
-                results={[]}
+                results={props.data.filterPanelData.isinSuggestionResult}
+                onChange={props.onChangeIsinValue}
+                onClick={props.onClickIsinSuggestionItem}
+                value={props.data.filterPanelData.isinValue}
               ></InputSuggestions>
             </div>
           </div>
@@ -68,8 +51,10 @@ const Productinfo = (props) => {
             <div className="occSymbolLabel">OCC Symbol:</div>
             <div className="occSymbolInputWrapper">
               <InputSuggestions
-                onChange={() => {}}
-                results={[]}
+                results={props.data.filterPanelData.occSymbolSuggestionResult}
+                onChange={props.onChangeOccSymbolValue}
+                onClick={props.onClickOccSymbolSuggestionItem}
+                value={props.data.filterPanelData.occSymbolValue}
               ></InputSuggestions>
             </div>
           </div>
@@ -77,18 +62,34 @@ const Productinfo = (props) => {
         </div>
         <div className="tierLabelAndValue">
           <div className="label">Tier:</div>
-          <Tierlevel tierLevelData={tierLevelData}></Tierlevel>
+          <Checkbox
+            checkboxData={tierLevelData}
+            isAllChecked={isAllTireChecked}
+            onCheckbox={props.onSelectTireCheckbox}
+            onAllChecked={props.onAllTireChecked}
+          ></Checkbox>
         </div>
         <p></p>
         <div className="typeLabelAndValue">
           <div className="label">Type:</div>
-          <Typefilter typeData={typeData}></Typefilter>
+          {/* <Typefilter typeData={typeData}></Typefilter> */}
+          <Checkbox
+            isAllChecked={isAllTypeChecked}
+            checkboxData={typeData}
+            onCheckbox={props.onSelectTypeCheckbox}
+            onAllChecked={props.onAllTypeChecked}
+          ></Checkbox>
         </div>
         <p></p>
         <div className="labelAndClearedWrapper">
           <div className="Clearedlabel">Cleared:</div>
           <div className="clearedwrapper">
-            <SelectBox type="single" options={selectClearedOptions}></SelectBox>
+            <SelectBox
+              type="single"
+              options={selectClearedOptions}
+              onChange={props.onChangeClearedValue}
+              selectedValue={selectedClearedValue}
+            ></SelectBox>
           </div>
         </div>
         <p></p>
@@ -98,6 +99,8 @@ const Productinfo = (props) => {
             <SelectBox
               type="single"
               options={selectCrossMarginOptions}
+              onChange={props.onChangeCrossMarginEligibleValue}
+              selectedValue={selectedCrossMarginValue}
             ></SelectBox>
           </div>
         </div>
@@ -108,6 +111,8 @@ const Productinfo = (props) => {
             <SelectBox
               type="single"
               options={selectCurrencyOptions}
+              onChange={props.onChangeCurrencyValue}
+              selectedValue={selectedCurrencyValue}
             ></SelectBox>
           </div>
         </div>

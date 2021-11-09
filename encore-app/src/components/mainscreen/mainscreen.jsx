@@ -3,6 +3,7 @@ import "./mainscreen.scss";
 import MaintenanceHeaders from "./maintenance-headers/maintenance-headers.jsx";
 import Mainscreengrid from "./maintenance-grid/maintenance-grid.jsx";
 const mainScreen = (props) => {
+  let matenanceDataLastPublishDate = new Date();
   return (
     <div className="maintenance">
       <div className="mainscreenTitleAndToggle">
@@ -26,7 +27,17 @@ const mainScreen = (props) => {
           props.onClickPublishValuedSecuritiesButton
         }
       ></MaintenanceHeaders>
-      <Mainscreengrid />
+      <Mainscreengrid onGridReady={props.onGridReady} />
+      <div className="saveCancelPublishDateWrapper">
+        <div className="publishDateWrapper">
+          Last Published Date:
+          {props.data.maintenanceScreenData.matenanceDataLastPublishDate}
+        </div>
+        <div className="cancelAndSaveButtonWrapper">
+          <button>Save</button>
+          <button>Cancel</button>
+        </div>
+      </div>
     </div>
   );
 };

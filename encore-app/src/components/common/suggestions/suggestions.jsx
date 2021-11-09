@@ -14,7 +14,7 @@ const Suggestions = (props) => {
         </li>
       );
     });
-  return options.length > 0 ? (
+  return options && options.length > 0 ? (
     <div className="suggestionsWrapper">
       <ul>{options}</ul>
     </div>
