@@ -42,6 +42,7 @@ const Daterangepicker = (props) => {
             onChange={props.setFromDate}
             selectsStart
             includeDates={getArrayOfDates(props.fromDate, props.toDate, -30)}
+            disabled={props.isFromAndStDisabled}
           />
         </div>
       </div>
@@ -53,6 +54,7 @@ const Daterangepicker = (props) => {
             onChange={props.setToDate}
             selectsEnd
             includeDates={getArrayOfDates(props.fromDate, props.toDate)}
+            disabled={props.isFromAndStDisabled}
           />
         </div>
       </div>

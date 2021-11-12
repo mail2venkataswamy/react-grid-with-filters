@@ -3,27 +3,38 @@ import Modal from "react-modal";
 import "./publish-valued-securities.scss";
 import Tier from "../../common/tier-level/tier-level.jsx";
 import Type from "../../common/type/type.jsx";
-
-let tierLevelData = [
-  { label: "All", value: "All" },
-  { label: "1", value: "one" },
-  { label: "2", value: "two" },
-  { label: "3", value: "three" },
-  { label: "4", value: "four" },
-];
+import CheckBox from "../../common/check-box/check-box.jsx";
 
 const PublishSecuritiesModalContent = (props) => {
+  const {
+    publishTireData,
+    publishTypeData,
+    isAllPublishTireChecked,
+    isAllPublishTypeChecked,
+  } = props.data;
   return (
     <div>
       <fieldset>
         <legend>Tiers</legend>
         <div className="label">Tier:</div>
-        <Tier tierLevelData={tierLevelData}></Tier>
+
+        <CheckBox
+          checkboxData={publishTireData}
+          isAllChecked={isAllPublishTireChecked}
+          onCheckbox={props.onSelectPublishTireCheckbox}
+          onAllChecked={props.onAllPublishTireChecked}
+        ></CheckBox>
       </fieldset>
       <fieldset>
         <legend>Product Type</legend>
         <div className="label">Type:</div>
-        <Type></Type>
+
+        <CheckBox
+          checkboxData={publishTypeData}
+          isAllChecked={isAllPublishTypeChecked}
+          onCheckbox={props.onSelectPublishTypeCheckbox}
+          onAllChecked={props.onAllPublishTypeChecked}
+        ></CheckBox>
       </fieldset>
       <fieldset>
         <legend>Eligibility</legend>
@@ -49,9 +60,18 @@ const PublishSecurities = (props) => {
         </div>
       </div>
       <div className="body">
-        <PublishSecuritiesModalContent></PublishSecuritiesModalContent>
+        <PublishSecuritiesModalContent
+          data={props.data}
+          onAllPublishTireChecked={props.onAllPublishTireChecked}
+          onSelectPublishTireCheckbox={props.onSelectPublishTireCheckbox}
+          onSelectPublishTypeCheckbox={props.onSelectPublishTypeCheckbox}
+          onAllPublishTypeChecked={props.onAllPublishTypeChecked}
+        ></PublishSecuritiesModalContent>
       </div>
       <div className="footer">
+        <button id="publishButton" onClick={props.onPublish}>
+          Publish
+        </button>
         <button id="resetButton" onClick={props.onReset}>
           Reset
         </button>
@@ -77,7 +97,16 @@ const PublishSecuritiesModal = (props) => {
   return (
     <Modal isOpen={props.isModalOpen} style={customStyles}>
       {/*       <ModalContent data={props} closeModal={props.closeModal} /> */}
-      <PublishSecurities closeModal={props.closeModal}></PublishSecurities>
+      <PublishSecurities
+        closeModal={props.closeModal}
+        data={props.data}
+        onAllPublishTireChecked={props.onAllPublishTireChecked}
+        onSelectPublishTireCheckbox={props.onSelectPublishTireCheckbox}
+        onSelectPublishTypeCheckbox={props.onSelectPublishTypeCheckbox}
+        onAllPublishTypeChecked={props.onAllPublishTypeChecked}
+        onReset={props.onResetPublish}
+        onPublish={props.onPublish}
+      ></PublishSecurities>
     </Modal>
   );
 };

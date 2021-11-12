@@ -7,6 +7,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 const Aggrid = (props) => {
   return (
     <div
+      id="myGrid"
       className="ag-theme-alpine"
       style={{ height: props.gridHeight, width: props.gridWidth }}
     >
@@ -21,6 +22,10 @@ const Aggrid = (props) => {
         enableRangeSelection={props.enableRangeSelection}
         onGridReady={props.onGridReady}
         popupParent={props.popupParent}
+        onFirstDataRendered={props.onFirstDataRendered}
+        groupUseEntireRow={true}
+        singleClickEdit={props.singleClickEdit}
+        onCellValueChanged={(e) => props.onCellValueChanged(e)}
       ></AgGridReact>
     </div>
   );

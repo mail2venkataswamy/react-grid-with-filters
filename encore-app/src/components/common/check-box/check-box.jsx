@@ -1,17 +1,22 @@
 import React from "react";
+import "./check-box.scss";
 
 const CheckBox = (props) => {
   return (
     <>
-      <label>
-        <input
-          type="checkbox"
-          onClick={props.onAllChecked}
-          value="checkedall"
-          checked={props.isAllChecked}
-        ></input>
-        All
-      </label>{" "}
+      {props.checkboxData && props.checkboxData.length > 0 ? (
+        <label>
+          <input
+            type="checkbox"
+            onClick={props.onAllChecked}
+            value="checkedall"
+            checked={props.isAllChecked}
+          ></input>
+          All
+        </label>
+      ) : (
+        ""
+      )}
       <ul>
         {props.checkboxData.map((type, index) => {
           return (

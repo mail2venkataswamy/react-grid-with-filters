@@ -1,13 +1,9 @@
 import React, { Component, useReducer } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
-import Filterscreen from "./components/filterscreen/filterscreen.jsx";
-import Mainscreen from "./components/mainscreen/mainscreen.jsx";
-import Editscreen from "./components/editscreen/editscreen.jsx";
-import PriceEditingContext from "./components/context/proce-editing-context.jsx";
-import PriceEditingReducer from "./reducers/price-editing-reducer.jsx";
-import { computeHeadingLevel } from "@testing-library/react";
-import _ from "lodash";
+import FilterPanel from "./components/filterscreen/filterscreen.jsx";
+import Maintenance from "./components/mainscreen/mainscreen.jsx";
+import EditDashboard from "./components/editscreen/editscreen.jsx";
 
 const getCurrentDateTime = () => {
   let currentdate = new Date();
@@ -30,7 +26,7 @@ class App extends Component {
         isPriceRollOverrideModalOpen: false,
         PriceRollOverrideMModalWarningMessage:
           "A record must be selected to perform this action",
-        selectedReviewValue: "",
+        selectedReviewValue: { label: "Review", value: "review" },
         maintenanceGridData: [],
         openGridMustSelectedModal: false,
         gridMustBePopulateModalWarningMessage: "Grid must be selected",
@@ -38,6 +34,54 @@ class App extends Component {
         isSuspendRestartRepoModalOpen: false,
         isPublishValuedSecuritiesModalOpen: false,
         matenanceDataLastPublishDate: getCurrentDateTime(),
+        maintenanceRowData: [],
+        publishTireData: [
+          { label: "1", value: "one", isChecked: false },
+          { label: "2", value: "two", isChecked: false },
+          { label: "3", value: "three", isChecked: false },
+          { label: "4", value: "four", isChecked: false },
+        ],
+        isAllPublishTypeChecked: false,
+        publishTypeData: [
+          { label: "Common Stock", value: "commonStock", isChecked: false },
+          {
+            label: "Preffered Stock",
+            value: "prefferedStock",
+            isChecked: false,
+          },
+          { label: "Index", value: "index", isChecked: false },
+          { label: "Corporate Debt", value: "corporateDebt", isChecked: false },
+          { label: "FMS", value: "fms", isChecked: false },
+        ],
+
+        isAllPublishTireChecked: false,
+        isPriceRollOverrideModalOpen: false,
+        priceTypeData: [
+          {
+            for: "priceType",
+            name: "priceType",
+            label: "Final",
+            type: "radio",
+            value: "final",
+          },
+          {
+            for: "priceType",
+            name: "priceType",
+            label: "Intraday",
+            type: "radio",
+            value: "intraDay",
+          },
+        ],
+        priceRollOverrideValue: "",
+        priceRollOverrideTillDate: "",
+        priceRollOverridePriceTypeValue: "",
+        reviewOptions: [
+          { label: "Review", value: "review" },
+          { label: "Review Final", value: "reviewFinal" },
+          { label: "Review Stock Loan", value: "reviewStockLoan" },
+          { label: "Review Both", value: "reviewBoth" },
+        ],
+        edittedRowsData: [],
       },
       editDashboardData: { showEditDashboardGrid: true },
       filterPanelData: {
@@ -56,11 +100,12 @@ class App extends Component {
         ],
         cuspinSuggestionResult: [],
         cuspinValue: "",
+        isFromAndStDisabled: false,
         currHistOptions: [
           { label: "CURRENT", value: "Current" },
           { label: "HISTORICAL", value: "Historical" },
         ],
-        selectedHistCurrValue: { label: "CURRENT", value: "Current" },
+        selectedCurrHistValue: { label: "CURRENT", value: "Current" },
         fromDate: new Date(),
         toDate: new Date(),
         isinData: [
@@ -77,6 +122,7 @@ class App extends Component {
         ],
         isinSuggestionResult: [],
         isinValue: "",
+        isinSearchValue: "",
         occSymbolData: [
           { id: 1, value: "AA001200" },
           { id: 2, value: "AA001201" },
@@ -91,6 +137,7 @@ class App extends Component {
         ],
         occSymbolSuggestionResult: [],
         occSymbolValue: "",
+        occSymbolSearchValue: "",
         isAllTypeChecked: false,
         typeData: [
           { label: "Common Stock", value: "commonStock", isChecked: false },
@@ -183,9 +230,9 @@ class App extends Component {
       maintenanceScreenData,
     });
   };
-  closePriceRollOverrideModal = () => {
+  closePriceRollOverrideWarningModal = () => {
     let maintenanceScreenData = this.state.maintenanceScreenData;
-    maintenanceScreenData.isPriceRollOverrideModalOpen = !maintenanceScreenData.isPriceRollOverrideModalOpen;
+    maintenanceScreenData.isPriceRollOverrideWarningModalOpen = !maintenanceScreenData.isPriceRollOverrideWarningModalOpen;
     this.setState({
       maintenanceScreenData,
     });
@@ -205,13 +252,16 @@ class App extends Component {
       });
     console.log(result);
     filterPanelData.cuspinSuggestionResult = result;
+    filterPanelData.cuspinSearchValue = e.target.value;
+    filterPanelData.cuspinValue = e.target.value;
+
     this.setState({
       filterPanelData,
     });
   }
   onSelectReview = (e) => {
     let maintenanceScreenData = this.state.maintenanceScreenData;
-    maintenanceScreenData.selectedReviewValue = e.target.value;
+    maintenanceScreenData.selectedReviewValue = e.value;
     this.setState({
       maintenanceScreenData,
     });
@@ -246,6 +296,7 @@ class App extends Component {
   onClickSuggestionItem = (selectedValue) => {
     let filterPanelData = this.state.filterPanelData;
     filterPanelData.cuspinValue = selectedValue;
+    filterPanelData.cuspinSearchValue = "";
     this.setState({
       filterPanelData,
     });
@@ -296,9 +347,15 @@ class App extends Component {
         .setAttribute("style", "transform:rotate(360deg)");
     }
   };
-  onChangeHistCurrValue = (e) => {
+  onChangeCurrHistValue = (e) => {
+    alert(JSON.stringify(e));
     let filterPanelData = this.state.filterPanelData;
-    filterPanelData.selectedHistCurrValue = e.target.value;
+    filterPanelData.selectedCurrHistValue = e.value;
+    if (e.value === "CURRENT") {
+      filterPanelData.isFromAndStDisabled = true;
+    } else {
+      filterPanelData.isFromAndStDisabled = false;
+    }
     this.setState({
       filterPanelData,
     });
@@ -322,6 +379,7 @@ class App extends Component {
   onClickIsinSuggestionItem = (selectedValue) => {
     let filterPanelData = this.state.filterPanelData;
     filterPanelData.isinValue = selectedValue;
+    filterPanelData.isinSearchValue = "";
     this.setState({
       filterPanelData,
     });
@@ -329,6 +387,7 @@ class App extends Component {
   onClickOccSymbolSuggestionItem = (selectedValue) => {
     let filterPanelData = this.state.filterPanelData;
     filterPanelData.occSymbolValue = selectedValue;
+    filterPanelData.occSymbolSearchValue = "";
     this.setState({
       filterPanelData,
     });
@@ -347,6 +406,8 @@ class App extends Component {
       });
     console.log(result);
     filterPanelData.isinSuggestionResult = result;
+    filterPanelData.isinSearchValue = e.target.value;
+    filterPanelData.isinValue = e.target.value;
     this.setState({
       filterPanelData,
     });
@@ -365,6 +426,8 @@ class App extends Component {
       });
     console.log(result);
     filterPanelData.occSymbolSuggestionResult = result;
+    filterPanelData.occSymbolSearchValue = e.target.value;
+    filterPanelData.occSymbolValue = e.target.value;
     this.setState({
       filterPanelData,
     });
@@ -461,10 +524,16 @@ class App extends Component {
     filterPanelData.isEditedRecordChecked = !filterPanelData.isEditedRecordChecked;
     this.setState({ filterPanelData });
   };
+
   onClickFiler = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
     let filterPanelData = this.state.filterPanelData;
+    let data = this.getFilteredGridData();
+    console.log(data);
+    maintenanceScreenData.maintenanceRowData = data;
+
     let filterObject = {
-      selectedHistCurrValue: filterPanelData.selectedHistCurrValue,
+      selectedCurrHistValue: filterPanelData.selectedCurrHistValue,
       cuspinValue: filterPanelData.cuspinValue,
       fromDate: filterPanelData.fromDate,
       toDate: filterPanelData.toDate,
@@ -479,25 +548,28 @@ class App extends Component {
       selectedreviewNeededValue: filterPanelData.selectedreviewNeededValue,
       isEditedRecordChecked: filterPanelData.isEditedRecordChecked,
     };
-    alert(JSON.stringify(filterObject));
+    console.log(filterObject);
+    this.setState({
+      maintenanceScreenData,
+    });
   };
   onClickReset = () => {
     let filterPanelData = this.state.filterPanelData;
     let intialFilterPanelState = this.state.intialFilterPanelState;
-    alert(JSON.stringify(intialFilterPanelState));
+    //alert(JSON.stringify(intialFilterPanelState));
     let data = { ...filterPanelData, ...intialFilterPanelState };
     console.log("final object is", data);
 
     //this.setState({ filterPanelData: intialFilterPanelState });
     this.setState({ filterPanelData: data });
   };
-
   componentDidMount() {
     let filterPanelData = this.state.filterPanelData;
     let filterObject1 = this.state.filterPanelData;
+    filterPanelData.isFromAndStDisabled = true;
 
     let filterObject = {
-      selectedHistCurrValue: filterPanelData.selectedHistCurrValue,
+      selectedCurrHistValue: filterPanelData.selectedCurrHistValue,
       cuspinValue: filterPanelData.cuspinValue,
       fromDate: filterPanelData.fromDate,
       toDate: filterPanelData.toDate,
@@ -514,21 +586,246 @@ class App extends Component {
       editedRecordValue: filterPanelData.editedRecordValue,
     };
     let data = { ...filterPanelData, ...filterObject };
-    alert(JSON.stringify(filterObject));
+
     this.setState({
       intialFilterPanelState: data,
+      filterPanelData,
     });
   }
+  getFilteredGridData() {
+    return [
+      {
+        "#": "",
+        cuspin: "test",
+        tier: 1,
+        type: 1,
+        currency: "USA",
+        thomson_price: 11,
+        bloomberg_price: 1234,
+        ice_price: 123,
+        exchange_price: 23,
+        previous_price: 33,
+        final_price: 55,
+        final_price_end_date: "",
+      },
+      {
+        "#": "",
+        cuspin: "test1",
+        tier: 1,
+        type: 1,
+        currency: "USA",
+        thomson_price: 11,
+        bloomberg_price: 11,
+        ice_price: 898,
+        exchange_price: 446,
+        previous_price: 676,
+        final_price: 55,
+        final_price_end_date: "",
+      },
+      {
+        "#": "",
+        cuspin: "test2",
+        tier: 1,
+        type: 1,
+        currency: "USA",
+        thomson_price: 99,
+        bloomberg_price: 1111,
+        ice_price: 445,
+        exchange_price: 2653,
+        previous_price: 3365,
+        final_price: 56565,
+        final_price_end_date: "",
+      },
+    ];
+  }
+  onRefreshMaintenanceGridData = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.maintenanceRowData = [];
+    this.setState({
+      maintenanceScreenData,
+    });
+
+    setTimeout(() => {
+      this.loadDataOnRefresh();
+    }, 3000);
+  };
+  loadDataOnRefresh() {
+    this.showLoading();
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    let data = this.getFilteredGridData();
+    console.log(data);
+    maintenanceScreenData.maintenanceRowData = data;
+    setTimeout(() => {
+      this.setState({
+        maintenanceScreenData,
+      });
+    }, 1000);
+  }
+  showLoading() {
+    let ele = document.getElementsByClassName("ag-overlay-no-rows-center")[0];
+    ele.innerText = "loading...";
+  }
+  onAllPublishTireChecked = (event) => {
+    let publishTireData = this.state.maintenanceScreenData.publishTireData;
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+
+    publishTireData.forEach((tire) => {
+      return (tire.isChecked = event.target.checked);
+    });
+    maintenanceScreenData.publishTireData = publishTireData;
+    maintenanceScreenData.isAllPublishTireChecked = !maintenanceScreenData.isAllPublishTireChecked;
+    this.setState({ maintenanceScreenData });
+  };
+  onSelectPublishTireCheckbox = (event) => {
+    let publishTireData = this.state.maintenanceScreenData.publishTireData;
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    let isAllPublishTireChecked = false;
+    let selectionCount = 0;
+    publishTireData.forEach((tire) => {
+      if (tire.value === event.target.value)
+        tire.isChecked = event.target.checked;
+
+      if (tire.isChecked) {
+        selectionCount++;
+      }
+      isAllPublishTireChecked =
+        selectionCount === publishTireData.length ? true : false;
+    });
+    maintenanceScreenData.publishTireData = publishTireData;
+    maintenanceScreenData.isAllPublishTireChecked = isAllPublishTireChecked;
+    this.setState({ maintenanceScreenData });
+  };
+  onSelectPublishTypeCheckbox = (event) => {
+    let publishTypeData = this.state.maintenanceScreenData.publishTypeData;
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    let isAllPublishTypeChecked = false;
+    let selectionCount = 0;
+    publishTypeData.forEach((type) => {
+      if (type.value === event.target.value)
+        type.isChecked = event.target.checked;
+
+      if (type.isChecked) {
+        selectionCount++;
+      }
+      isAllPublishTypeChecked =
+        selectionCount === publishTypeData.length ? true : false;
+    });
+    maintenanceScreenData.publishTypeData = publishTypeData;
+    maintenanceScreenData.isAllPublishTypeChecked = isAllPublishTypeChecked;
+    this.setState({ maintenanceScreenData });
+  };
+  onAllPublishTypeChecked = (event) => {
+    let publishTypeData = this.state.maintenanceScreenData.publishTypeData;
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+
+    publishTypeData.forEach((type) => {
+      return (type.isChecked = event.target.checked);
+    });
+    maintenanceScreenData.publishTypeData = publishTypeData;
+    maintenanceScreenData.isAllPublishTypeChecked = !maintenanceScreenData.isAllPublishTypeChecked;
+    this.setState({ maintenanceScreenData });
+  };
+  onResetPublish = () => {
+    let publishTireData = this.state.maintenanceScreenData.publishTireData;
+    let publishTypeData = this.state.maintenanceScreenData.publishTypeData;
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    publishTireData.forEach((tire) => {
+      return (tire.isChecked = false);
+    });
+    publishTypeData.forEach((type) => {
+      return (type.isChecked = false);
+    });
+    maintenanceScreenData.isAllPublishTypeChecked = false;
+    maintenanceScreenData.isAllPublishTireChecked = false;
+    maintenanceScreenData.publishTypeData = publishTypeData;
+    maintenanceScreenData.publishTireData = publishTireData;
+    this.setState({ maintenanceScreenData });
+  };
+  onPublish = () => {
+    alert("published");
+  };
+
+  closePriceRollOverrideModal = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    let isPriceRollOverrideModalOpen = this.state.maintenanceScreenData
+      .isPriceRollOverrideModalOpen;
+    maintenanceScreenData.isPriceRollOverrideModalOpen = !isPriceRollOverrideModalOpen;
+    this.setState({ maintenanceScreenData });
+  };
+  onChangePriceOverrideValue = (e) => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.priceRollOverrideValue = e.target.value;
+    this.setState({ maintenanceScreenData });
+  };
+  setPriceOverrideTillDate = (date) => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.priceRollOverrideTillDate = date;
+    this.setState({ maintenanceScreenData });
+  };
+  onChangePriceTypeValue = (e) => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.priceRollOverridePriceTypeValue = e.target.value;
+    this.setState({ maintenanceScreenData });
+  };
+  onSavePriceOverrideValue = () => {
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    let priceRollOverrideObjecttoSave = {
+      priceRollOverrideValue: maintenanceScreenData.priceRollOverrideValue,
+      priceRollOverrideTillDate:
+        maintenanceScreenData.priceRollOverrideTillDate,
+      priceRollOverridePriceTypeValue:
+        maintenanceScreenData.priceRollOverridePriceTypeValue,
+    };
+    alert(JSON.stringify(priceRollOverrideObjecttoSave));
+    console.log(priceRollOverrideObjecttoSave);
+
+    maintenanceScreenData.isPriceRollOverrideModalOpen = false;
+    this.setState({ maintenanceScreenData });
+  };
+  //===============AG-GRID=====================================
+  getSelectedRowData = () => {
+    let selectedNodes = this.gridApi.getSelectedNodes();
+    let selectedData = selectedNodes.map((node) => node.data);
+    alert(`Selected Nodes:\n${JSON.stringify(selectedData)}`);
+    return selectedData;
+  };
+  onGridReady = (params) => {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+  };
+
+  getEditingCells() {
+    var cellDefs = this.gridApi.getEditingCells();
+    console.log(JSON.stringify(cellDefs));
+  }
+  onCellValueChanged = (item) => {
+    let row = {
+      ...item.data,
+      oldValue: item.oldValue,
+      newValue: item.newValue,
+      type: item.type,
+      rowIndex: item.rowIndex,
+      column: item.column.colId,
+    };
+    alert(
+      `Cell value of ${row.column} of row index ${row.rowIndex} --------> ${row.oldValue} to ${row.newValue}`
+    );
+    let maintenanceScreenData = this.state.maintenanceScreenData;
+    maintenanceScreenData.edittedRowsData.push(row);
+    this.setState({ maintenanceScreenData });
+    console.log("updated  grid rows", maintenanceScreenData.edittedRowsData);
+  };
+  //============================================================
 
   render() {
     let data = this.state;
     return (
-      <div className="mainVS">
-        <Filterscreen
+      <div id="mainVS">
+        <FilterPanel
           onChangeCuspinValue={(e) => this.onChangeCuspinValue(e)}
           data={this.state}
           onClickSuggestionItem={this.onClickSuggestionItem}
-          onChangeHistCurrValue={(e) => this.onChangeHistCurrValue(e)}
+          onChangeCurrHistValue={(e) => this.onChangeCurrHistValue(e)}
           setFromDate={(e) => this.setFromDate(e)}
           setToDate={(e) => this.setToDate(e)}
           onChangeIsinValue={(e) => this.onChangeIsinValue(e)}
@@ -550,11 +847,13 @@ class App extends Component {
           onClickFiler={this.onClickFiler}
           onClickReset={this.onClickReset}
         />
-        <div className="mainEdit">
-          <Mainscreen
+        <div id="editMaint">
+          <Maintenance
             data={data}
             onClickPriceRollOverrideButton={this.onClickPriceRollOverrideButton}
-            closePriceRollOverrideModal={this.closePriceRollOverrideModal}
+            closePriceRollOverrideWarningModal={
+              this.closePriceRollOverrideWarningModal
+            }
             onSelectReview={(e) => this.onSelectReview(e)}
             closeGridMustSelectedModal={this.closeGridMustSelectedModal}
             closeThresholdModal={this.closeThresholdModal}
@@ -569,9 +868,29 @@ class App extends Component {
             onClickPublishValuedSecuritiesButton={
               this.onClickPublishValuedSecuritiesButton
             }
+            onRefreshMaintenanceGridData={this.onRefreshMaintenanceGridData}
+            onAllPublishTireChecked={(e) => this.onAllPublishTireChecked(e)}
+            onSelectPublishTireCheckbox={(e) =>
+              this.onSelectPublishTireCheckbox(e)
+            }
+            onSelectPublishTypeCheckbox={(e) =>
+              this.onSelectPublishTypeCheckbox(e)
+            }
+            onAllPublishTypeChecked={(e) => this.onAllPublishTypeChecked(e)}
+            onResetPublish={this.onResetPublish}
+            onPublish={this.onPublish}
+            closePriceRollOverrideModal={this.closePriceRollOverrideModal}
+            onChangePriceOverrideValue={(e) =>
+              this.onChangePriceOverrideValue(e)
+            }
+            setPriceOverrideTillDate={(e) => this.setPriceOverrideTillDate(e)}
+            onChangePriceTypeValue={(e) => this.onChangePriceTypeValue(e)}
+            onSavePriceOverrideValue={this.onSavePriceOverrideValue}
+            getSelectedRowData={this.getSelectedRowData}
             onGridReady={this.onGridReady}
-          ></Mainscreen>
-          <Editscreen
+            onCellValueChanged={this.onCellValueChanged}
+          ></Maintenance>
+          <EditDashboard
             toggleEditDashboardGrid={this.toggleEditDashboardGrid}
             data={data}
           />

@@ -32,6 +32,7 @@ const Productinfo = (props) => {
               results={props.data.filterPanelData.cuspinSuggestionResult}
               onClick={props.onClickSuggestionItem}
               value={props.data.filterPanelData.cuspinValue}
+              keySearch={props.data.filterPanelData.cuspinSearchValue}
             ></InputSuggestions>
           </div>
           <p></p>
@@ -41,8 +42,10 @@ const Productinfo = (props) => {
               <InputSuggestions
                 results={props.data.filterPanelData.isinSuggestionResult}
                 onChange={props.onChangeIsinValue}
+                //cuspinSearchValue={props.data.filterPanelData.cuspinSearchValue}
                 onClick={props.onClickIsinSuggestionItem}
                 value={props.data.filterPanelData.isinValue}
+                keySearch={props.data.filterPanelData.isinSearchValue}
               ></InputSuggestions>
             </div>
           </div>
@@ -55,6 +58,7 @@ const Productinfo = (props) => {
                 onChange={props.onChangeOccSymbolValue}
                 onClick={props.onClickOccSymbolSuggestionItem}
                 value={props.data.filterPanelData.occSymbolValue}
+                keySearch={props.data.filterPanelData.occSymbolSearchValue}
               ></InputSuggestions>
             </div>
           </div>

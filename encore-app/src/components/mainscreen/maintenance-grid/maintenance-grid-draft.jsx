@@ -16,22 +16,6 @@ function setNormal(api) {
   eGridDiv.style.height = "500px";
   api.setDomLayout(null);
 }
-/* gridOptions.api.startEditingCell({
-  rowIndex: 0,
-  colKey: "country",
-});
-
-// stop editing
-gridOptions.api.stopEditing();
-
-// print details of editing cell
-const cellDefs = gridOptions.api.getEditingCells();
-
-cellDefs.forEach((cellDef) => {
-  console.log(cellDef.rowIndex);
-  console.log(cellDef.column.getId());
-  console.log(cellDef.floating);
-}); */
 class Maintenancegrid extends React.Component {
   constructor(props) {
     super(props);
@@ -188,7 +172,6 @@ class Maintenancegrid extends React.Component {
           popupParent={this.state.popupParent}
           suppressExcelExport={true}
           onFirstDataRendered={this.onFirstDataRendered.bind(this)}
-          singleClickEdit={true}
         />
       </>
     );

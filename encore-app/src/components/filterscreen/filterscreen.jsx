@@ -14,7 +14,7 @@ const filterscreen = (props) => {
       </div>
       <ActivityDateRange
         data={props.data}
-        onChangeHistCurrValue={props.onChangeHistCurrValue}
+        onChangeCurrHistValue={props.onChangeCurrHistValue}
         setFromDate={props.setFromDate}
         setToDate={props.setToDate}
       ></ActivityDateRange>

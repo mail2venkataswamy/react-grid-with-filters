@@ -12,7 +12,9 @@ const mainScreen = (props) => {
       <MaintenanceHeaders
         data={props.data}
         onClickPriceRollOverrideButton={props.onClickPriceRollOverrideButton}
-        closePriceRollOverrideModal={props.closePriceRollOverrideModal}
+        closePriceRollOverrideWarningModal={
+          props.closePriceRollOverrideWarningModal
+        }
         onSelectReview={props.onSelectReview}
         closeGridMustSelectedModal={props.closeGridMustSelectedModal}
         closeThresholdModal={props.closeThresholdModal}
@@ -26,8 +28,23 @@ const mainScreen = (props) => {
         onClickPublishValuedSecuritiesButton={
           props.onClickPublishValuedSecuritiesButton
         }
+        onRefreshMaintenanceGridData={props.onRefreshMaintenanceGridData}
+        onAllPublishTireChecked={props.onAllPublishTireChecked}
+        onSelectPublishTireCheckbox={props.onSelectPublishTireCheckbox}
+        onSelectPublishTypeCheckbox={props.onSelectPublishTypeCheckbox}
+        onAllPublishTypeChecked={props.onAllPublishTypeChecked}
+        onResetPublish={props.onResetPublish}
+        onPublish={props.onPublish}
+        closePriceRollOverrideModal={props.closePriceRollOverrideModal}
+        onChangePriceOverrideValue={props.onChangePriceOverrideValue}
+        setPriceOverrideTillDate={props.setPriceOverrideTillDate}
+        onChangePriceTypeValue={props.onChangePriceTypeValue}
+        onSavePriceOverrideValue={props.onSavePriceOverrideValue}
+        getSelectedRowData={props.getSelectedRowData}
+        onGridReady={props.onGridReady}
+        onCellValueChanged={props.onCellValueChanged}
       ></MaintenanceHeaders>
-      <Mainscreengrid onGridReady={props.onGridReady} />
+      {/*      <Mainscreengrid /> */}
       <div className="saveCancelPublishDateWrapper">
         <div className="publishDateWrapper">
           Last Published Date:

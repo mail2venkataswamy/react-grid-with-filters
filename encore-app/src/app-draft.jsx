@@ -95,3 +95,28 @@ class ValuedSecurities extends React.Component {
 }
 
 export default ValuedSecurities;
+
+onGridReady = (params) => {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+
+  const httpRequest = new XMLHttpRequest();
+  const updateData = (data) => {
+    data.length = 10;
+    data = data.map((row, index) => {
+      return { ...row, id: index + 1 };
+    });
+    this.setState({ rowData: data, backupRowData: data });
+  };
+
+  httpRequest.open(
+    "GET",
+    "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
+  );
+  httpRequest.send();
+  httpRequest.onreadystatechange = () => {
+    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+      updateData(JSON.parse(httpRequest.responseText));
+    }
+  };
+};

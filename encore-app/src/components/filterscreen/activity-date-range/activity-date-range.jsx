@@ -16,18 +16,25 @@ const ActivityDateRange = (props) => {
           <div className="wrapper">
             <div className="currHistLabel">CURR/HIST</div>
             <div className="dropdownWrapper">
-              <Select
+              {/*<Select
                 options={props.data.filterPanelData.currHistOptions}
-                id={"currHistSelect"}
-                selectedValue={props.data.filterPanelData.selectedHistCurrValue}
-                onChange={props.onChangeHistCurrValue}
-              ></Select>
+                id={"histCurr"}
+                selectedValue={props.data.filterPanelData.selectedCurrHistValue}
+                onChange={props.onChangeCurrHistValue}
+                ></Select> */}
+              <Dropdown
+                options={props.data.filterPanelData.currHistOptions}
+                id={"histCurr"}
+                selectedValue={props.data.filterPanelData.selectedCurrHistValue}
+                onChange={props.onChangeCurrHistValue}
+              ></Dropdown>
             </div>
           </div>
           {/*</div>*/}
         </div>
         <div className="dateRangeWrapper">
           <Daterangepicker
+            isFromAndStDisabled={props.data.filterPanelData.isFromAndStDisabled}
             toDate={props.data.filterPanelData.toDate}
             fromDate={props.data.filterPanelData.fromDate}
             setFromDate={props.setFromDate}

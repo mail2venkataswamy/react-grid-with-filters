@@ -6,6 +6,7 @@ const SimpleDropdown = (props) => {
 
   return (
     <Dropdown
+      id={props.id}
       options={props.options}
       onChange={props.onChange}
       value={
