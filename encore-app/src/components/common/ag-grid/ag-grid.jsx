@@ -26,6 +26,8 @@ const Aggrid = (props) => {
         groupUseEntireRow={true}
         singleClickEdit={props.singleClickEdit}
         onCellValueChanged={(e) => props.onCellValueChanged(e)}
+        paginationPageSize={props.paginationPageSize}
+        getSelectedRowData={props.getSelectedRowData}
       ></AgGridReact>
     </div>
   );
